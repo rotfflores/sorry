@@ -145,10 +145,8 @@
         <h1 id="hashtag">#DíaXPidiendoPerdón</h1>
         <div id="contador">0</div>
         <button class="boton" onclick="activarFuegos()">Perdonar</button>
-        <audio id="musica boton" autoplay loop>
-            <source src="/audio/audio.mp3" type="audio/mpeg">
-            Tu navegador no soporta el elemento de audio.
-        </audio>
+        <!-- Audio modificado -->
+        <audio id="audioPerdon" src="/audio/audio.mp3"></audio>
     </div>
 
     <script>
@@ -229,6 +227,12 @@
         function activarFuegos() {
             fuegosActivos = true;
             document.querySelector('.boton').style.animation = 'clickEffect 0.3s';
+            
+            // Reproducir el audio
+            const audio = document.getElementById('audioPerdon');
+            audio.play().catch(error => {
+                console.log('Error al reproducir audio:', error);
+            });
         }
 
         // Contador de días
