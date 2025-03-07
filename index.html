@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Días Pidiendo Perdón</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #contador {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .boton {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: white;
+            color: #ff6b6b;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .boton:active {
+            transform: translateY(0);
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <h1 id="hashtag">#DíaXPidiendoPerdón</h1>
+        <div id="contador">0</div>
+        <button class="boton" onclick="activarFuegos()">Pedir Perdón Hoy</button>
+        <audio id="musica boton" autoplay loop>
+            <source src="/audio/audio.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particulas = [];
+        let fuegosActivos = false;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particula {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.velocidadX = (Math.random() - 0.5) * 8;
+                this.velocidadY = (Math.random() - 0.75) * 8;
+                this.tamano = Math.random() * 4 + 2;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.alpha = 1;
+                this.gravedad = 0.1;
+            }
+            
+            actualizar() {
+                this.velocidadY += this.gravedad;
+                this.x += this.velocidadX;
+                this.y += this.velocidadY;
+                this.alpha -= 0.015;
+            }
+            
+            dibujar() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.tamano, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if(fuegosActivos) {
+                if(Math.random() < 0.1) {
+                    lanzarFuegos(
+                        Math.random() * canvas.width,
+                        Math.random() * canvas.height * 0.5
+                    );
+                }
+            }
+
+            particulas.forEach((particula, index) => {
+                particula.actualizar();
+                particula.dibujar();
+                
+                if (particula.alpha <= 0 || 
+                    particula.y > canvas.height + 100 ||
+                    particula.x < -100 || 
+                    particula.x > canvas.width + 100) {
+                    particulas.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animar);
+        }
+        animar();
+
+        function lanzarFuegos(x, y) {
+            for(let i = 0; i < 50; i++) {
+                particulas.push(new Particula(x, y));
+            }
+        }
+
+        function activarFuegos() {
+            fuegosActivos = true;
+            document.querySelector('.boton').style.animation = 'clickEffect 0.3s';
+        }
+
+        // Contador de días
+        const fechaInicial = new Date('2024-02-26');
+        
+        function actualizarContador() {
+            const hoy = new Date();
+            const diferencia = hoy - fechaInicial;
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('contador').textContent = dias;
+            document.getElementById('hashtag').textContent = `#Día${dias}PidiendoPerdón`;
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes clickEffect {
+                0% { transform: scale(1); }
+                50% { transform: scale(0.95); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000 * 60 * 60);
+    </script>
+</body>
+</html>
