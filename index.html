@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perdon :( </title>
+    <title>Be happy</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -142,9 +142,9 @@
 <body>
     <canvas id="canvas"></canvas>
     <div class="container">
-        <h1 id="hashtag">#DíaXPidiendoPerdón</h1>
+        <h1 id="hashtag">#DíaXTratandandoDeQueSeasFeliz</h1>
         <div id="contador">0</div>
-        <button class="boton" onclick="activarFuegos()">Perdonar</button>
+        <button class="boton" onclick="activarFuegos()">Be Happy :)</button>
         <!-- Audio modificado -->
         <audio id="audioPerdon" src="audio/audio.mp3" type="audio/mp3"></audio>
     </div>
@@ -236,7 +236,7 @@
         }
 
         // Contador de días
-        const fechaInicial = new Date('2025-02-26');
+        const fechaInicial = new Date('2025-03-8');
         
         function actualizarContador() {
             const hoy = new Date();
@@ -244,7 +244,7 @@
             const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
             
             document.getElementById('contador').textContent = dias;
-            document.getElementById('hashtag').textContent = `#Día${dias}PidiendoPerdón`;
+            document.getElementById('hashtag').textContent = `#Día${dias}TratandoDeQueSeasFeliz`;
         }
 
         const style = document.createElement('style');
