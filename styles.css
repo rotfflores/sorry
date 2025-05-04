@@ -1,75 +1,132 @@
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #ff758c, #ff7eb3);
-    text-align: center;
-    color: white;
-    margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #181212, #2c2a2a);
+    color: white;
+    text-align: center;
+    overflow: hidden;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
 }
 
 h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.message {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-.letter {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 1em;
-    text-align: left;
-    animation: fadeIn 2s ease-in-out;
-}
-
-.buttons {
-    margin-top: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.forgive {
-    background: #4caf50;
-    color: white;
-}
-
-.not-ready {
-    background: #ff5722;
-    color: white;
-}
-
-#response-message {
-    font-size: 1.2em;
-    margin-top: 20px;
+#contador {
+    font-size: 4rem;
     font-weight: bold;
+    margin: 1rem 0;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.boton {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: white;
+    color: #151515;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-top: 1rem;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.boton:active {
+    transform: translateY(0);
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Añadir media queries para responsividad */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #contador {
+        font-size: 3rem;
+    }
+
+    .boton {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #contador {
+        font-size: 2.5rem;
+        margin: 0.5rem 0;
+    }
+
+    .boton {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    #hashtag {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    #contador {
+        font-size: 2rem;
+    }
+}
+
+/* Añadir para prevenir overflow en móviles */
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
 }
