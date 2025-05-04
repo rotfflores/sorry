@@ -107,3 +107,20 @@ document.head.appendChild(style);
 
 actualizarContador();
 setInterval(actualizarContador, 1000 * 60 * 60);
+
+/*mostrar imagen*/
+const bottobottonImage = document.querySelector(".botton-image");
+const containerImg = document.querySelector('.container-img');
+const x = document.querySelector('#x');
+
+bottobottonImage.addEventListener('click', () => {
+    containerImg.style.display = 'block';
+    x.style.display = 'block';
+}
+);
+
+x.addEventListener('click', () => {
+    containerImg.style.display = 'none';
+    x.style.display = 'none';
+}
+);
